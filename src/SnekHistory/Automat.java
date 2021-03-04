@@ -6,17 +6,6 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class Automat {
-
-    public static Automat getInstance() {
-        if (instance == null) {
-            instance = new Automat();
-        }
-        return instance;
-    }
-    private Automat() {}
-
-    private static Automat instance;
-
     Map<IProduct, Integer> snaks = new TreeMap<>();
 
     void AddProduct(IProduct product) {
@@ -35,5 +24,18 @@ public class Automat {
         }
 
         return out;
+    }
+
+    public static void main(String[] args) {
+        Automat automat = new Automat();
+
+        automat.AddProduct(new DiliverySnikers().DeleviryProuct());
+        automat.AddProduct(new DiliverySnikers().DeleviryProuct());
+        automat.AddProduct(new DiliverySnikers().DeleviryProuct());
+
+        automat.AddProduct(new DiliveryTwiks().DeleviryProuct());
+        automat.AddProduct(new DiliveryTwiks().DeleviryProuct());
+
+        System.out.println(automat);
     }
 }
