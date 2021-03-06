@@ -1,16 +1,37 @@
 package SnekHistory;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class Automat {
+    private static Automat instance = null;
+
+    public static Automat getInstance() {
+        if (instance == null) {
+            instance = new Automat();
+        }
+        return instance;
+    }
+
+    private Automat() {}
+
+
     Map<IProduct, Integer> snaks = new TreeMap<>();
 
     void AddProduct(IProduct product) {
         int count = snaks.getOrDefault(product, 0);
         snaks.put(product, count + 1);
+    }
+
+    boolean BuyProduct(IProduct product) {
+        int count = snaks.getOrDefault(product, 0);
+        if (count > 0) {
+            snaks.put(product, count - 1);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -24,18 +45,5 @@ public class Automat {
         }
 
         return out;
-    }
-
-    public static void main(String[] args) {
-        Automat automat = new Automat();
-
-        automat.AddProduct(new DiliverySnikers().DeleviryProuct());
-        automat.AddProduct(new DiliverySnikers().DeleviryProuct());
-        automat.AddProduct(new DiliverySnikers().DeleviryProuct());
-
-        automat.AddProduct(new DiliveryTwiks().DeleviryProuct());
-        automat.AddProduct(new DiliveryTwiks().DeleviryProuct());
-
-        System.out.println(automat);
     }
 }
